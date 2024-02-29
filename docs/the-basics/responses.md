@@ -9,7 +9,6 @@ To make an Inertia response, use the Inertia **render** function. This method ta
 {% endhint %}
 
 {% code title="app/http/controllers/EventsController.py" %}
-
 ```python
 from masonite.controllers import Controller
 from masonite.inertia import Inertia
@@ -20,20 +19,17 @@ from app.Event import Event
 class EventsController(Controller):
 
     def show(self, view: Inertia):
-
         return view.render("Events/Show", {
             "event": Event.find(self.request.param("id")).serialize()
         })
 ```
-
 {% endcode %}
 
 In this example we're passing a single prop, called `event` to the `Event/Show` page component.
 
-You can also directly resolve `inertia` instance in your controller
+You can also directly resolve `inertia` instance in your controller.
 
 {% code title="app/http/controllers/EventsController.py" %}
-
 ```python
 from masonite.controllers import Controller
 from masonite.request import Request
@@ -49,10 +45,9 @@ class EventsController(Controller):
             "event": Event.find(self.request.param("id")).serialize()
         })
 ```
-
 {% endcode %}
 
-### Inertia.render\(\)
+### Inertia.render()
 
 ```python
 render(self, component, props={}, custom_root_view=None)

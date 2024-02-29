@@ -51,20 +51,21 @@ application.make("inertia").share({
 Use this feature sparingly as shared data is included with every response.
 {% endhint %}
 
-## Flash messages (UPDATE for M4)
+## Flash messages
 
 In order for your server-side validation errors to be available client-side, Masonite adapter shares flash errors messages **automatically** through an `errors` prop.
 
 It means that when you flash a message in session in your controller, the message will be available client-side (in your e.g. Vue.js component).
 
-```python
-request.session.flash("errors", "An error occured.")
+```javascript
+request.session.flash("errors", {"global": "An error has ocurred."})
 ```
 
-With the Vue adapter you would then access the messages with
+With the React adapter, you could use the data like this:
 
 ```javascript
-$page.props.errors; // == "An error occured."
+const { errors } = useForm();
+errors // == {global: "An error occured."}
 ```
 
 If you want to update sharing flash messages logic you can override the share method in the `HandleInertiaRequests` middleware.

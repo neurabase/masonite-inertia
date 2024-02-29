@@ -2,25 +2,20 @@
 
 ## Requirements
 
-- a Masonite 4 project
-- a Node.js environment
+* masonite >= 4
+* a Node.js environment
 
 ## Installation
 
 Install the latest Inertia server-side adapter in your project
 
 ```
-pip install masonite-inertia
+pip install inertia-masonite
 ```
-
-{% hint style="warning" %}
-`masonite-inertia 4.X` versions are for Masonite 4. `masonite-inertia 3.X` versions are for Masonite 3.
-{% endhint %}
 
 Add `InertiaProvider` to your project
 
 {% code title="config/providers.py" %}
-
 ```python
 # ...
 from masonite.inertia import InertiaProvider
@@ -32,39 +27,29 @@ PROVIDERS = [
     InertiaProvider,
 ]
 ```
-
 {% endcode %}
 
-Add the Inertia middleware to your project
-
-```python
-from masonite.inertia import InertiaMiddleware
-
-
-class HandleInertiaRequests(InertiaMiddleware):
-```
+Add the Inertia middleware to your project.
 
 {% hint style="warning" %}
-It's important to put this middleware in your HTTP middleware and `EncryptCookies` in route middlewares !
+It's important to put this middleware in your HTTP middleware and `EncryptCookies` in route middlewares
 {% endhint %}
 
 {% code title="config/middleware.py" %}
-
 ```python
+from masonite.inertia import InertiaMiddleware
 # ...
 http_middleware = [
     #...,
-    HandleInertiaRequests,
+    InertiaMiddleware,
 ]
 route_middleware = {
     "web": [EncryptCookies, SessionMiddleware,...]
 }
 ```
-
 {% endcode %}
 
-Finally you can (optionally) publish the package configuration file to your project if you want to
-change some configuration parameters:
+Finally you can (optionally) publish the package configuration file to your project if you want to change some configuration parameters:
 
 ```python
 python craft package:publish inertia
