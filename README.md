@@ -21,8 +21,9 @@ Inertia is a new approach to building classic server-driven web apps. From their
 > Inertia allows you to create fully client-side rendered, single-page apps, without much of the complexity that comes with modern SPAs. It does this by leveraging existing server-side frameworks.
 
 Inertia requires an adapter for each backend framework. This repo contains the Masonite server-side adapter for [Inertia.js](https://inertiajs.com/).
+You can find the legacy Inertia PingCRM demo with Masonite here [demo (WIP)](https://github.com/girardinsamuel/pingcrm-masonite).
 
-[Documentation 📚](https://masonite-inertia.aguad.dev)
+[Documentation 📚](https://samuelgirardin.gitbook.io/inertia-masonite)
 [Quick Start ⚡️](#installation)
 
 ## Features
@@ -34,6 +35,7 @@ Almost all features of the official server-side adapters are present 😃
 - Lazy loaded props
 - Set root view in a provider
 - Set root view per view
+- Enable sharing Masonite routes (prefer using [masonite-js-routes](https://github.com/girardinsamuel/masonite-js-routes))
 - Enable sharing Masonite flash messages
 
 ## Official Masonite Documentation
@@ -110,7 +112,7 @@ Congratulations! You have now setup Inertia in your project! For more informatio
 
 ## Getting started
 
-This section quickly explains how to use Inertia.js with Masonite. For more details please [read the documentation 📚](https://masonite-inertia.aguad.dev).
+This section quickly explains how to use Inertia.js with Masonite. For more details please [read the documentation 📚](https://samuelgirardin.gitbook.io/inertia-masonite).
 
 ### How to use Inertia.js with Masonite adapter
 
@@ -178,11 +180,9 @@ Please read the [Contributing Documentation](CONTRIBUTING.md) here.
 
 ## Maintainers
 
-- [Eduardo Aguad](https://aguad.dev)
+- [Samuel Girardin](https://www.github.com/girardinsamuel)
 
-## Disclaimer
-
-This project was originally started by [Samuel Girardin](https://github.com/girardinsamuel/), that was a core maintainer of Masonite Framework, along with [Joe Mancuso](https://github.com/josephmancuso) (creator of the framework) and other great packages like Exceptionite, Masonite Debugbar and so on. Since Sam stopped contributing and left some packages behind, I decided to continue his work and continue maintaining this and other packages related to Masonite Ecosystem.
+Thanks to [Joseph Mancuso](https://github.com/josephmancuso) for making the PoC to couple Masonite and Inertia.js !
 
 ## License
 

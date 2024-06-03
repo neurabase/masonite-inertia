@@ -51,29 +51,25 @@ class Inertia:
                 self.routes.update({route._name: route.url})
 
     def hydrate_errors(self, request):
-        errors = request.session.get("errors") or {} if hasattr(request, "session") else {}
+        # clean errors to avoid them to persist after success calls
+        self.shared_props["errors"] = {}
 
-        if "errors" in self.shared_props:
-            self.shared_props["errors"] = {**self.shared_props["errors"], **errors}
-        else:
-            self.share({"errors": errors})
+        # check if there are flashed errors
+        if self.application.make("session").has("errors"):
+            self.share({"errors": self.application.make("session").get("errors")})
 
-        return self
+        # check if view has a MessageBag and hydrate these errors
+        if "bag" in self.application.make("view")._shared:
+            bag = self.application.make("view")._shared["bag"]
 
-    def hydrate_success(self, request):
-        success = request.session.get("success") or {} if hasattr(request, "session") else {}
-
-        if "success" in self.shared_props and type(self.shared_props["success"]) is dict and type(success) is dict:
-            self.shared_props["success"] = {**self.shared_props["success"], **success}
-        else:
-            self.share({"success": success})
+            if callable(bag) and bag.__name__ == "helper" and bag().any():
+                self.share({"errors": bag().all()})
 
         return self
 
     def render(self, component, props={}, custom_root_view=None):
         request = self.application.make("request")
         self.hydrate_errors(request)
-        self.hydrate_success(request)
         page_data = self.get_page_data(component, props)
 
         if request.header("X-Inertia"):
@@ -131,6 +127,9 @@ class Inertia:
         return str(version)
 
     def share(self, key, value=None):
+        if key is None:
+            return
+
         if isinstance(key, dict):
             self.shared_props = {**self.shared_props, **key}
         else:
