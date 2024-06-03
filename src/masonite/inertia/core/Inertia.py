@@ -63,7 +63,7 @@ class Inertia:
     def hydrate_success(self, request):
         success = request.session.get("success") or {} if hasattr(request, "session") else {}
 
-        if "success" in self.shared_props and type(self.shared_props["success"]) is dict:
+        if "success" in self.shared_props and type(self.shared_props["success"]) is dict and type(success) is dict:
             self.shared_props["success"] = {**self.shared_props["success"], **success}
         else:
             self.share({"success": success})
