@@ -67,9 +67,20 @@ class Inertia:
 
         return self
 
+    def hydrate_success(self, request):
+        # clean success to avoid them to persist after success calls
+        self.shared_props["success"] = {}
+
+        # check if there are flashed success
+        if self.application.make("session").has("success"):
+            self.share({"success": self.application.make("session").get("success")})
+
+        return self
+
     def render(self, component, props={}, custom_root_view=None):
         request = self.application.make("request")
         self.hydrate_errors(request)
+        self.hydrate_success(request)
         page_data = self.get_page_data(component, props)
 
         if request.header("X-Inertia"):
