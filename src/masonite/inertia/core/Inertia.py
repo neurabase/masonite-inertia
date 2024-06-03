@@ -60,9 +60,20 @@ class Inertia:
 
         return self
 
+    def hydrate_success(self, request):
+        success = request.session.get("success") or {} if hasattr(request, "session") else {}
+
+        if "success" in self.shared_props:
+            self.shared_props["success"] = {**self.shared_props["success"], **success}
+        else:
+            self.share({"success": success})
+
+        return self
+
     def render(self, component, props={}, custom_root_view=None):
         request = self.application.make("request")
         self.hydrate_errors(request)
+        self.hydrate_success(request)
         page_data = self.get_page_data(component, props)
 
         if request.header("X-Inertia"):
